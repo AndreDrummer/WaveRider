@@ -1,4 +1,4 @@
-# waverider
+# WaveRider
 
 A new Flutter project.
 
