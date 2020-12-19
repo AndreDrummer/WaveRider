@@ -1,10 +1,17 @@
 import 'constantes.dart';
 
 class Endpoints {
-  // Categories
-  static String get listAllCategories => '${Constantes.BASE_URL}\wp-json/wp/v2/categories';
+  // News / Events list and Detail.
+  static String listAllPostsByCategorie(String categorieName) {
+    int categorieID;
+    switch (categorieName) {
+      case 'news':
+        categorieID = 9;
+        break;
+      case 'events':
+        categorieID = 11;
+    }
 
-  static String listAllCategoriesByID(String categorieID) {
     return '${Constantes.BASE_URL}\wp-json/wp/v2/posts?categories=$categorieID';
   }
 

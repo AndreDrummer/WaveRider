@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:waverider/screens/about_screen.dart';
-import 'package:waverider/screens/events_screen.dart';
-import 'package:waverider/screens/news_screen.dart';
+import 'package:waverider/screens/events/events_screen.dart';
+import 'package:waverider/screens/news/news_screen.dart';
 import 'package:waverider/screens/wave_spots_screen.dart';
 
 void main() {
