@@ -23,7 +23,6 @@ class _NewsScreenState extends State<NewsScreen> {
     return StreamBuilder<int>(
       stream: bloc.indexStackStream,
       builder: (context, snapshot) {
-        print('index ${snapshot.data}');
         return IndexedStack(
           index: snapshot.data ?? 0,
           children: [

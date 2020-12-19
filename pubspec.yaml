@@ -34,6 +34,7 @@ dev_dependencies:
     sdk: flutter
   dio: ^3.0.10
   rxdart: ^0.25.0
+  youtube_player_flutter: ^7.0.0+7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -48,7 +48,6 @@ class _EventsListState extends State<EventsList> {
                 return GestureDetector(
                   onTap: () {
                     bloc.changeStackIndex(1);
-                    print('teste');
                   },
                   child: Column(
                     children: [

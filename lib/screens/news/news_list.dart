@@ -48,7 +48,7 @@ class _NewsListState extends State<NewsList> {
                 return GestureDetector(
                   onTap: () {
                     bloc.changeStackIndex(1);
-                    print('Hey');
+                    bloc.changeNewBeingDetailed(index);
                   },
                   child: Column(
                     children: [

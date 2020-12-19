@@ -8,15 +8,18 @@ class EventsBloc implements Bloc {
   final CategoryService _categoryService = CategoryService();
   final _eventsList = BehaviorSubject<List<Post>>.seeded([]);
   final _indexStack = BehaviorSubject<int>.seeded(0);
+  final _eventBeingDetailed = BehaviorSubject<int>.seeded(0);
 
   // Listening data
   Stream<List<Post>> get eventsListStream => _eventsList.stream;
   Stream<int> get indexStackStream => _indexStack.stream;
+  Stream<int> get eventBeingDetailed => _eventBeingDetailed;
 
   // Obtaining the actual data
   List<Post> get getEventsList => _eventsList.value;
 
   void Function(int) get changeStackIndex => _indexStack.sink.add;
+  void Function(int) get changeNewBeingDetailed => _eventBeingDetailed.sink.add;
 
   // loading data from API
   Future<void> getEvents() async {
@@ -27,5 +30,6 @@ class EventsBloc implements Bloc {
   void dispose() {
     _eventsList.close();
     _indexStack.close();
+    _eventBeingDetailed.close();
   }
 }
