@@ -6,7 +6,21 @@ import 'package:waverider/widgets/loading_page.dart';
 import 'package:waverider/widgets/image_header.dart';
 import 'package:waverider/widgets/text_widgets.dart';
 
-class NewsList extends StatelessWidget {
+class NewsList extends StatefulWidget {
+  @override
+  _NewsListState createState() => _NewsListState();
+}
+
+class _NewsListState extends State<NewsList> {
+  NewsBloc bloc;
+
+  @override
+  void didChangeDependencies() {
+    bloc = BlocProvider.of<NewsBloc>(context);
+    if (bloc.getNewsList.isEmpty) bloc.getNews();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -32,7 +46,10 @@ class NewsList extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    bloc.changeStackIndex(1);
+                    print('Hey');
+                  },
                   child: Column(
                     children: [
                       ImageHeader(),
@@ -48,5 +65,10 @@ class NewsList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

@@ -1,17 +1,12 @@
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
 import 'package:waverider/bloC/bloc.dart';
 import 'package:waverider/models/post.dart';
 import 'package:waverider/services/categories_services.dart';
+import 'package:rxdart/rxdart.dart';
 
 class EventsBloc implements Bloc {
-  EventsBloc() {
-    this.getEvents();
-  }
-
   final CategoryService _categoryService = CategoryService();
-  List<Post> _events = List<Post>();
-  final _eventsList = BehaviorSubject<List<Post>>();
+  final _eventsList = BehaviorSubject<List<Post>>.seeded([]);
   final _indexStack = BehaviorSubject<int>.seeded(0);
 
   // Listening data
@@ -19,12 +14,13 @@ class EventsBloc implements Bloc {
   Stream<int> get indexStackStream => _indexStack.stream;
 
   // Obtaining the actual data
-  List<Post> get getEventsList => _events;
+  List<Post> get getEventsList => _eventsList.value;
+
+  void Function(int) get changeStackIndex => _indexStack.sink.add;
 
   // loading data from API
   Future<void> getEvents() async {
-    _events = await _categoryService.getEvents();
-    _eventsList.sink.add(_events);
+    _eventsList.sink.add(await _categoryService.getEvents());
   }
 
   @override
@@ -33,5 +29,3 @@ class EventsBloc implements Bloc {
     _indexStack.close();
   }
 }
-
-EventsBloc bloc = EventsBloc();

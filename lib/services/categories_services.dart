@@ -7,7 +7,6 @@ class CategoryService {
     List<Post> news = List<Post>();
     try {
       Response response = await Dio().get(Endpoints.listAllPostsByCategorie('news'));
-      print(response);
 
       if (response.data != null) {
         news = List<Post>.from(response.data.map((news) => Post.fromJson(news)));
@@ -22,7 +21,6 @@ class CategoryService {
     List<Post> events = List<Post>();
     try {
       Response response = await Dio().get(Endpoints.listAllPostsByCategorie('events'));
-      print(response);
 
       if (response.data != null) {
         events = List<Post>.from(response.data.map((events) => Post.fromJson(events)));
@@ -35,8 +33,7 @@ class CategoryService {
 
   void getPostByID(String postID) async {
     try {
-      Response response = await Dio().get(Endpoints.getPostByID(postID));
-      print(response);
+      // Response response = await Dio().get(Endpoints.getPostByID(postID));
     } catch (e) {
       print(e);
     }

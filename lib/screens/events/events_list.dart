@@ -6,7 +6,21 @@ import 'package:waverider/widgets/image_header.dart';
 import 'package:waverider/widgets/loading_page.dart';
 import 'package:waverider/widgets/text_widgets.dart';
 
-class EventsList extends StatelessWidget {
+class EventsList extends StatefulWidget {
+  @override
+  _EventsListState createState() => _EventsListState();
+}
+
+class _EventsListState extends State<EventsList> {
+  EventsBloc bloc;
+
+  @override
+  void didChangeDependencies() {
+    bloc = BlocProvider.of<EventsBloc>(context);
+    if (bloc.getEventsList.isEmpty) bloc.getEvents();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -32,7 +46,10 @@ class EventsList extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    bloc.changeStackIndex(1);
+                    print('teste');
+                  },
                   child: Column(
                     children: [
                       ImageHeader(),
@@ -48,5 +65,11 @@ class EventsList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 }

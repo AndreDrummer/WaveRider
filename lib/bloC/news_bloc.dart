@@ -5,13 +5,8 @@ import 'package:waverider/services/categories_services.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NewsBloc implements Bloc {
-  NewsBloc() {
-    this.getNews();
-  }
-
   final CategoryService _categoryService = CategoryService();
-  List<Post> _news = List<Post>();
-  final _newsList = BehaviorSubject<List<Post>>();
+  final _newsList = BehaviorSubject<List<Post>>.seeded([]);
   final _indexStack = BehaviorSubject<int>.seeded(0);
 
   // Listening data
@@ -19,12 +14,13 @@ class NewsBloc implements Bloc {
   Stream<int> get indexStackStream => _indexStack.stream;
 
   // Obtaining the actual data
-  List<Post> get getNewsList => _news;
+  List<Post> get getNewsList => _newsList.value;
+
+  void Function(int) get changeStackIndex => _indexStack.sink.add;
 
   // loading data from API
   Future<void> getNews() async {
-    _news = await _categoryService.getNews();
-    _newsList.sink.add(_news);
+    _newsList.sink.add(await _categoryService.getNews());
   }
 
   @override
@@ -33,5 +29,3 @@ class NewsBloc implements Bloc {
     _indexStack.close();
   }
 }
-
-NewsBloc bloc = NewsBloc();
