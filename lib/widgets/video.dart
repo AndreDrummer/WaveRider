@@ -13,6 +13,7 @@ class YouTubePlayer extends StatefulWidget {
 
 class _YouTubePlayerState extends State<YouTubePlayer> {
   YoutubePlayerController _controller;
+  // ignore: unused_field
   PlayerState _playerState;
   bool _isPlayerReady = false;
 
@@ -28,7 +29,7 @@ class _YouTubePlayerState extends State<YouTubePlayer> {
       initialVideoId: convertUrl(widget.videoUrl),
       flags: const YoutubePlayerFlags(
         mute: false,
-        autoPlay: true,
+        autoPlay: false,
         hideControls: false,
         hideThumbnail: true,
         disableDragSeek: true,

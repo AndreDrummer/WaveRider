@@ -17,19 +17,19 @@ class _NewsListState extends State<NewsList> {
   @override
   void didChangeDependencies() {
     bloc = BlocProvider.of<NewsBloc>(context);
-    if (bloc.getNewsList.isEmpty) bloc.getNews();
+    if (bloc.getList.isEmpty) bloc.load();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => bloc.getNews(),
+      onRefresh: () async => bloc.load(),
       child: BlocProvider<NewsBloc>(
         bloc: bloc,
         child: StreamBuilder<List<Post>>(
-          stream: bloc.newsListStream,
-          initialData: bloc.getNewsList,
+          stream: bloc.listStream,
+          initialData: bloc.getList,
           builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return LoadingPage();
@@ -48,7 +48,7 @@ class _NewsListState extends State<NewsList> {
                 return GestureDetector(
                   onTap: () {
                     bloc.changeStackIndex(1);
-                    bloc.changeNewBeingDetailed(index);
+                    bloc.changeIndexBeingDetailed(index);
                   },
                   child: Column(
                     children: [

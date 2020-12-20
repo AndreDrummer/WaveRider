@@ -17,19 +17,19 @@ class _EventsListState extends State<EventsList> {
   @override
   void didChangeDependencies() {
     bloc = BlocProvider.of<EventsBloc>(context);
-    if (bloc.getEventsList.isEmpty) bloc.getEvents();
+    if (bloc.getList.isEmpty) bloc.load();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => bloc.getEvents(),
+      onRefresh: () async => bloc.load(),
       child: BlocProvider<EventsBloc>(
         bloc: bloc,
         child: StreamBuilder<List<Post>>(
-          stream: bloc.eventsListStream,
-          initialData: bloc.getEventsList,
+          stream: bloc.listStream,
+          initialData: bloc.getList,
           builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return LoadingPage();
@@ -48,6 +48,7 @@ class _EventsListState extends State<EventsList> {
                 return GestureDetector(
                   onTap: () {
                     bloc.changeStackIndex(1);
+                    bloc.changeIndexBeingDetailed(index);
                   },
                   child: Column(
                     children: [
