@@ -4,6 +4,8 @@ import 'package:waverider/bloC/categorie_bloc.dart';
 import 'package:waverider/bloC/region_bloc.dart';
 import 'package:waverider/home.dart';
 
+import 'bloC/spot_bloc.dart';
+
 void main() {
   runApp(WaveRider());
 }
@@ -11,18 +13,24 @@ void main() {
 class WaveRider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    RegionBloc regionBloc = RegionBloc();
+    regionBloc.loadRegions();
+
     return BlocProvider<CategorieBloc>(
       bloc: CategorieBloc(),
       child: BlocProvider<RegionBloc>(
-        bloc: RegionBloc(),
-        child: MaterialApp(
-          title: 'WaveRider',
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
+        bloc: regionBloc,
+        child: BlocProvider<SpotBloc>(
+          bloc: SpotBloc(),
+          child: MaterialApp(
+            title: 'WaveRider',
+            theme: ThemeData(
+              primarySwatch: Colors.purple,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            debugShowCheckedModeBanner: false,
+            home: Home(title: 'WaveRider'),
           ),
-          debugShowCheckedModeBanner: false,
-          home: Home(title: 'WaveRider'),
         ),
       ),
     );

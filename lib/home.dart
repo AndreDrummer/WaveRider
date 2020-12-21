@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:waverider/screens/about_screen.dart';
 import 'package:waverider/screens/events_screen.dart';
 import 'package:waverider/screens/news_screen.dart';
-import 'package:waverider/screens/region/region_list.dart';
+import 'package:waverider/screens/region/regions_screen.dart';
 
 class Home extends StatefulWidget {
   Home({
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final _screens = <Widget>[
-      RegionList(),
+      RegionScreen(),
       NewsScreen(),
       EventsScreen(),
       AboutScreen(),

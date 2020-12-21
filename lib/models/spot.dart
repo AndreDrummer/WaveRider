@@ -16,7 +16,7 @@ class Spot {
   int featuredMedia;
   String template;
   List<int> regions;
-  _Acf acf;
+  _SpotLatLng acf;
   Links lLinks;
 
   Spot({
@@ -55,7 +55,7 @@ class Spot {
     featuredMedia = json['featured_media'];
     template = json['template'];
     regions = json['regions'].cast<int>();
-    acf = json['acf'] != null ? new _Acf.fromJson(json['acf']) : null;
+    acf = json['acf'] != null ? new _SpotLatLng.fromJson(json['acf']) : null;
     lLinks = json['_links'] != null ? new Links.fromJson(json['_links']) : null;
   }
 
@@ -92,18 +92,18 @@ class Spot {
   }
 }
 
-class _Acf {
+class _SpotLatLng {
   String lat;
   String lon;
   String subregion;
 
-  _Acf({
+  _SpotLatLng({
     this.lat,
     this.lon,
     this.subregion,
   });
 
-  _Acf.fromJson(Map<String, dynamic> json) {
+  _SpotLatLng.fromJson(Map<String, dynamic> json) {
     lat = json['lat'];
     lon = json['lon'];
     subregion = json['subregion'];

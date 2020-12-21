@@ -14,28 +14,9 @@ class RegionService {
           ),
         );
       }
-      print(response);
     } catch (e) {
       print(e);
     }
     return regions;
-  }
-
-  void getSpotByRegionID(String regionID) async {
-    try {
-      Response response = await Dio().get(Endpoints.listAllSpotsByRegion(regionID));
-      print(response);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void getSpotByID(String spotID) async {
-    try {
-      Response response = await Dio().get(Endpoints.getSpotDetails(spotID));
-      print(response);
-    } catch (e) {
-      print(e);
-    }
   }
 }

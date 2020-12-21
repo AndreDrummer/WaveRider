@@ -10,6 +10,8 @@ class HandleApiString {
     text = text.replaceAll('&nbsp;', '');
     text = text.replaceAll('<br>', '\n');
     text = text.replaceAll('[&hellip;]', '');
+    text = text.replaceAll('&#8220;', '"');
+    text = text.replaceAll('&#8221;', '"');
 
     if (containImage) {
       return text.split('</figure>')[1].trim().split('<figure class').first.trim();

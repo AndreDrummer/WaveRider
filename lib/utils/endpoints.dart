@@ -22,7 +22,7 @@ class Endpoints {
   // Spots / Regions
   static String get listAllRegions => '${Constantes.BASE_URL}\wp-json/wp/v2/regions';
 
-  static String listAllSpotsByRegion(String regionID) {
+  static String listAllSpotsByRegion(int regionID) {
     return '${Constantes.BASE_URL}\wp-json/wp/v2/spot?regions=$regionID';
   }
 
