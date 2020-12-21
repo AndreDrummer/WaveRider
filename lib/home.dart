@@ -1,10 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:waverider/bloC/bloc_provider.dart';
-import 'package:waverider/bloC/events_bloc.dart';
-import 'package:waverider/bloC/news_bloc.dart';
 import 'package:waverider/screens/about_screen.dart';
-import 'package:waverider/screens/categorie_screen.dart';
+import 'package:waverider/screens/events_screen.dart';
+import 'package:waverider/screens/news_screen.dart';
 import 'package:waverider/screens/wave_spots_screen.dart';
 
 class Home extends StatefulWidget {
@@ -27,27 +25,11 @@ class _HomeState extends State<Home> {
     });
   }
 
-  NewsBloc newsBloc;
-  EventsBloc eventsBloc;
-
-  @override
-  void didChangeDependencies() {
-    newsBloc = BlocProvider.of<NewsBloc>(context);
-    if (newsBloc.getList.isEmpty) newsBloc.load();
-    eventsBloc = BlocProvider.of<EventsBloc>(context);
-    if (eventsBloc.getList.isEmpty) eventsBloc.load();
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     final _screens = <Widget>[
-      CategorieScreen(
-        bloc: newsBloc,
-      ),
-      CategorieScreen(
-        bloc: eventsBloc,
-      ),
+      NewsScreen(),
+      EventsScreen(),
       WaveSpotsScreen(),
       AboutScreen(),
     ];

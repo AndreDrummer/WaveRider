@@ -2,13 +2,13 @@ import 'constantes.dart';
 
 class Endpoints {
   // News / Events list and Detail.
-  static String listAllPostsByCategorie(String categorieName) {
+  static String listAllPostsByCategorie(CATEGORIE_TYPE categorieName) {
     int categorieID;
     switch (categorieName) {
-      case 'news':
+      case CATEGORIE_TYPE.news:
         categorieID = 9;
         break;
-      case 'events':
+      case CATEGORIE_TYPE.events:
         categorieID = 11;
     }
 

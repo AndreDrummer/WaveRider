@@ -1,3 +1,5 @@
+enum CATEGORIE_TYPE { news, events }
+
 class Constantes {
   // ignore: non_constant_identifier_names
   static const String BASE_URL = 'http://waverider.projects.seedworks.pt/';

@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:waverider/bloC/bloc_provider.dart';
-import 'package:waverider/bloC/events_bloc.dart';
+import 'package:waverider/bloC/categorie_bloc.dart';
+import 'package:waverider/models/post.dart';
+import 'package:waverider/screens/categorie/functions.dart';
 import 'package:waverider/utils/handle_api_string.dart';
 import 'package:waverider/widgets/image_header.dart';
 import 'package:waverider/widgets/text_widgets.dart';
 import 'package:waverider/widgets/video.dart';
+import 'package:waverider/utils/constantes.dart';
 
-class EventDetail extends StatefulWidget {
+class CategorieDetail extends StatefulWidget {
+  CategorieDetail({
+    this.bloc,
+    @required this.categorieType,
+  });
+
+  final CategorieBloc bloc;
+  final CATEGORIE_TYPE categorieType;
+
   @override
-  _EventDetailState createState() => _EventDetailState();
+  _CategorieDetailState createState() => _CategorieDetailState();
 }
 
-class _EventDetailState extends State<EventDetail> {
-  EventsBloc bloc;
-
-  @override
-  void didChangeDependencies() {
-    bloc = BlocProvider.of<EventsBloc>(context);
-    super.didChangeDependencies();
-  }
-
+class _CategorieDetailState extends State<CategorieDetail> {
   @override
   Widget build(BuildContext context) {
-    if (bloc.getList.isEmpty) return Container();
-    String content = bloc.getList[bloc.indexBeingDetailed].content.rendered;
+    CategorieCommonFunctions categorieCommonFunctions = CategorieCommonFunctions(bloc: widget.bloc, categorieType: widget.categorieType);
+    List<Post> list = categorieCommonFunctions.list();
+    int indexDetailed = categorieCommonFunctions.getCategorieIndexBeingDetailed();
+
+    if (list.isEmpty) return Container();
+    String content = list[indexDetailed].content.rendered;
     bool containImage = content.contains('<figure class=\"wp-block-image');
     bool containVideo = content.contains('<figure class=\"wp-block-embed is-type-video');
     String videoTitle = containVideo ? HandleApiString.getVideoTitle(content) : null;
@@ -31,23 +37,17 @@ class _EventDetailState extends State<EventDetail> {
 
     return WillPopScope(
       onWillPop: () async {
-        bloc.changeStackIndex(0);
+        categorieCommonFunctions.changeStackIndex(0);
         return false;
       },
       child: ListView(
         children: [
           ImageHeader(
             isExpanded: true,
+            src: imageSrc,
           ),
           SizedBox(height: 10),
-          TextTitle(text: bloc.getList[bloc.indexBeingDetailed].title.rendered, fontSize: 18),
-          imageSrc != null
-              ? ImageHeader(
-                  isExpanded: false,
-                  squareImage: true,
-                  src: imageSrc,
-                )
-              : Container(),
+          TextTitle(text: list[indexDetailed].title.rendered, fontSize: 18),
           TextResume(text: content, fontSize: 14),
           Container(
             margin: const EdgeInsets.all(20),

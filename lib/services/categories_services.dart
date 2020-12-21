@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:waverider/models/post.dart';
 import 'package:waverider/utils/endpoints.dart';
+import 'package:waverider/utils/constantes.dart';
 
 class CategoryService {
   Future<List<Post>> getNews() async {
     List<Post> news = List<Post>();
     try {
-      Response response = await Dio().get(Endpoints.listAllPostsByCategorie('news'));
+      Response response = await Dio().get(Endpoints.listAllPostsByCategorie(CATEGORIE_TYPE.news));
 
       if (response.data != null) {
         news = List<Post>.from(response.data.map((news) => Post.fromJson(news)));
@@ -20,7 +21,7 @@ class CategoryService {
   Future<List<Post>> getEvents() async {
     List<Post> events = List<Post>();
     try {
-      Response response = await Dio().get(Endpoints.listAllPostsByCategorie('events'));
+      Response response = await Dio().get(Endpoints.listAllPostsByCategorie(CATEGORIE_TYPE.events));
 
       if (response.data != null) {
         events = List<Post>.from(response.data.map((events) => Post.fromJson(events)));

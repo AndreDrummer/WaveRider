@@ -5,7 +5,7 @@ class ImageHeader extends StatelessWidget {
   ImageHeader({
     this.isExpanded = false,
     this.squareImage = false,
-    this.src = Constantes.NO_IMAGE,
+    this.src,
   });
 
   final bool isExpanded;
@@ -16,6 +16,9 @@ class ImageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    String imageUrl = src;
+
+    if (imageUrl == null) imageUrl = Constantes.NO_IMAGE;
 
     return Container(
       height: squareImage ? 200 : height / 5,
@@ -24,7 +27,7 @@ class ImageHeader extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: isExpanded ? 0 : 15, vertical: isExpanded ? 0 : 10),
       child: FadeInImage(
         placeholder: AssetImage('assets/no-image.png'),
-        image: NetworkImage(src),
+        image: NetworkImage(imageUrl),
         fit: BoxFit.fill,
       ),
     );
