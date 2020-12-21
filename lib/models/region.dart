@@ -9,7 +9,7 @@ class Region {
   String slug;
   String taxonomy;
   List meta;
-  List acf;
+  Acf acf;
   Links lLinks;
 
   Region({
@@ -34,16 +34,13 @@ class Region {
     slug = json['slug'];
     taxonomy = json['taxonomy'];
     if (json['meta'] != null) {
-      meta = new List<Null>();
+      meta = new List();
       json['meta'].forEach((v) {
         meta.add(v);
       });
     }
-    if (json['acf'] != null) {
-      acf = new List<Null>();
-      json['acf'].forEach((v) {
-        acf.add(v);
-      });
+    if (json['acf'].isNotEmpty) {
+      acf = json['acf'] != null ? new Acf.fromJson(json['acf']) : null;
     }
     lLinks = json['_links'] != null ? new Links.fromJson(json['_links']) : null;
   }
@@ -66,6 +63,22 @@ class Region {
     if (this.lLinks != null) {
       data['_links'] = this.lLinks.toJson();
     }
+    return data;
+  }
+}
+
+class Acf {
+  String highlightedPicture;
+
+  Acf({this.highlightedPicture});
+
+  Acf.fromJson(Map<String, dynamic> json) {
+    highlightedPicture = json['highlighted_picture'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['highlighted_picture'] = this.highlightedPicture;
     return data;
   }
 }

@@ -30,10 +30,8 @@ class _CategorieDetailState extends State<CategorieDetail> {
 
     if (list.isEmpty) return Container();
     String content = list[indexDetailed].content.rendered;
-    bool containImage = content.contains('<figure class=\"wp-block-image');
     bool containVideo = content.contains('<figure class=\"wp-block-embed is-type-video');
     String videoTitle = containVideo ? HandleApiString.getVideoTitle(content) : null;
-    String imageSrc = containImage ? HandleApiString.getImageSrc(content) : null;
 
     return WillPopScope(
       onWillPop: () async {
@@ -42,12 +40,23 @@ class _CategorieDetailState extends State<CategorieDetail> {
       },
       child: ListView(
         children: [
-          ImageHeader(
-            isExpanded: true,
-            src: imageSrc,
+          FutureBuilder<String>(
+            future: widget.bloc.loadDestakImage(list[indexDetailed].lLinks.wpAttachment.first.href),
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return ImageHeader(
+                  isExpanded: true,
+                );
+              }
+              return ImageHeader(
+                isExpanded: true,
+                src: snapshot.data,
+              );
+            },
           ),
           SizedBox(height: 10),
           TextTitle(text: list[indexDetailed].title.rendered, fontSize: 18),
+          SizedBox(height: 20),
           TextResume(text: content, fontSize: 14),
           Container(
             margin: const EdgeInsets.all(20),

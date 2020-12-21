@@ -24,7 +24,6 @@ class HandleApiString {
 
   static String getVideoLink(String text) {
     if (text.contains('<figure class')) {
-      print(text.split('src="').last.split('"').first);
       return text.split('src="').last.split('"').first.trim();
     }
     return null;
@@ -40,7 +39,6 @@ class HandleApiString {
   static String getImageSrc(String text) {
     bool containImage = text.contains('<figure class=\"wp-block-image');
     if (containImage) {
-      print(text.split('<figure class=\"wp-block-image').last.split('</figure>').first.split('src="').last.split('"').first);
       return text.split('<figure class=\"wp-block-image').last.split('</figure>').first.split('src="').last.split('"').first;
     }
     return null;

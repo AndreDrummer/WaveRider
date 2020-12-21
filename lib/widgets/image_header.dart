@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:waverider/utils/constantes.dart';
 
 class ImageHeader extends StatelessWidget {
   ImageHeader({
@@ -18,18 +17,23 @@ class ImageHeader extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     String imageUrl = src;
 
-    if (imageUrl == null) imageUrl = Constantes.NO_IMAGE;
+    // if (imageUrl == null) imageUrl = Constantes.NO_IMAGE;
 
     return Container(
       height: squareImage ? 200 : height / 5,
       width: squareImage ? width / 2 : double.infinity,
       color: Colors.blueGrey,
       margin: EdgeInsets.symmetric(horizontal: isExpanded ? 0 : 15, vertical: isExpanded ? 0 : 10),
-      child: FadeInImage(
-        placeholder: AssetImage('assets/no-image.png'),
-        image: NetworkImage(imageUrl),
-        fit: BoxFit.fill,
-      ),
+      child: imageUrl != null && imageUrl.isNotEmpty
+          ? FadeInImage(
+              placeholder: AssetImage('assets/no-image.png'),
+              image: NetworkImage(imageUrl),
+              fit: BoxFit.fill,
+            )
+          : Image.asset(
+              'assets/no-image.png',
+              fit: BoxFit.fill,
+            ),
     );
   }
 }

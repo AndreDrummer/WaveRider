@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:waverider/models/common.dart';
 import 'package:waverider/models/post.dart';
 import 'package:waverider/utils/endpoints.dart';
 import 'package:waverider/utils/constantes.dart';
@@ -38,5 +39,18 @@ class CategoryService {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<String> loadDestakImage(String url) async {
+    List<DestakImageData> destakImageData = List<DestakImageData>();
+    try {
+      Response response = await Dio().get(url);
+      if (response.data != null) {
+        destakImageData = List<DestakImageData>.from(response.data.map((destakImageData) => DestakImageData.fromJson(destakImageData)));
+      }
+    } catch (e) {
+      print(e);
+    }
+    return destakImageData.isEmpty ? null : destakImageData.first.guid.rendered;
   }
 }

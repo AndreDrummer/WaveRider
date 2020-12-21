@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:waverider/bloC/categorie_bloc.dart';
 import 'package:waverider/models/post.dart';
 import 'package:waverider/screens/categorie/functions.dart';
-import 'package:waverider/utils/handle_api_string.dart';
 import 'package:waverider/widgets/image_header.dart';
 import 'package:waverider/widgets/loading_page.dart';
 import 'package:waverider/widgets/text_widgets.dart';
@@ -47,15 +46,6 @@ class _CategorieListState extends State<CategorieList> {
           return ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (BuildContext context, int index) {
-              String content = '';
-              bool containImage = false;
-              if (list.isNotEmpty) {
-                content = list[index].content.rendered;
-                containImage = content.contains('<figure class=\"wp-block-image');
-              }
-
-              String imageSrc = containImage ? HandleApiString.getImageSrc(content) : null;
-
               return GestureDetector(
                 onTap: () {
                   categorieCommonFunctions.changeStackIndex(1);
@@ -63,8 +53,16 @@ class _CategorieListState extends State<CategorieList> {
                 },
                 child: Column(
                   children: [
-                    ImageHeader(
-                      src: imageSrc,
+                    FutureBuilder<String>(
+                      future: widget.bloc.loadDestakImage(snapshot.data[index].lLinks.wpAttachment.first.href),
+                      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return ImageHeader();
+                        }
+                        return ImageHeader(
+                          src: snapshot.data,
+                        );
+                      },
                     ),
                     TextTitle(text: snapshot.data[index].title.rendered),
                     TextResume(text: snapshot.data[index].excerpt.rendered),

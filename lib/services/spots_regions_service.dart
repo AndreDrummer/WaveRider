@@ -1,14 +1,24 @@
 import 'package:dio/dio.dart';
+import 'package:waverider/models/region.dart';
 import 'package:waverider/utils/endpoints.dart';
 
-class SpotRegionService {
-  void getRegions() async {
+class RegionService {
+  Future<List<Region>> getRegions() async {
+    List<Region> regions = List<Region>();
     try {
       Response response = await Dio().get(Endpoints.listAllRegions);
+      if (response.data != null) {
+        regions = List<Region>.from(
+          response.data.map(
+            (region) => Region.fromJson(region),
+          ),
+        );
+      }
       print(response);
     } catch (e) {
       print(e);
     }
+    return regions;
   }
 
   void getSpotByRegionID(String regionID) async {
