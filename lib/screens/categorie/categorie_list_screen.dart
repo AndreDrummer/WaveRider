@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:waverider/bloC/categorie_bloc.dart';
 import 'package:waverider/models/post.dart';
-import 'package:waverider/utils/functions.dart';
+import 'package:waverider/utils/categorie_common_functions.dart';
 import 'package:waverider/widgets/image_header.dart';
 import 'package:waverider/widgets/loading_page.dart';
 import 'package:waverider/widgets/text_widgets.dart';
