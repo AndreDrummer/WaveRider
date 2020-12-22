@@ -40,19 +40,21 @@ class BeachTile extends StatelessWidget {
                 );
               },
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextTitle(
-                  text: beachName,
-                ),
-                Container(
-                  width: width - 170,
-                  child: TextResume(
-                    text: beachResume,
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextTitle(
+                    text: beachName,
                   ),
-                )
-              ],
+                  Container(
+                    width: width - 170,
+                    child: TextResume(
+                      text: beachResume,
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ),

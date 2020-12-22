@@ -28,9 +28,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final _screens = <Widget>[
-      RegionScreen(),
       NewsScreen(),
       EventsScreen(),
+      RegionScreen(),
       AboutScreen(),
     ];
 

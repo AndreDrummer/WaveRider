@@ -15,6 +15,7 @@ class RegionBloc with Bloc, ChangeNotifier {
 
   List<Region> get getRegionList => _regionList.value;
   int get regionIndexBeingDetailed => _regionIndexBeingDetailed;
+  int get getIndexStack => _indexStack.value;
 
   void Function(int) get changeStackIndex => _indexStack.sink.add;
 

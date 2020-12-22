@@ -15,7 +15,6 @@ class RegionDetail extends StatefulWidget {
 class _RegionDetailState extends State<RegionDetail> {
   RegionBloc regionBloc;
   SpotBloc spotBloc;
-  GoogleMapController mapController;
 
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
@@ -27,7 +26,7 @@ class _RegionDetailState extends State<RegionDetail> {
           position: LatLng(double.parse(spot.acf.lat), double.parse(spot.acf.lon)),
           infoWindow: InfoWindow(
             title: spot.title.rendered,
-            snippet: spot.title.rendered,
+            snippet: spot.acf.subregion,
           ),
         );
         _markers[spot.title.rendered] = marker;
@@ -46,14 +45,15 @@ class _RegionDetailState extends State<RegionDetail> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     if (regionBloc.getRegionList.isEmpty) return Container();
+    final _centerEmpty = LatLng(36.8977574, -27.8334449);
 
     return WillPopScope(
       onWillPop: () async {
-        regionBloc.changeStackIndex(0);
+        regionBloc.changeStackIndex(regionBloc.getIndexStack - 1);
         return false;
       },
       child: spotBloc.getSpotList.isEmpty
-          ? _emptyScreen()
+          ? _emptyScreen(context)
           : Column(
               children: [
                 Container(
@@ -65,10 +65,7 @@ class _RegionDetailState extends State<RegionDetail> {
                     markers: _markers.values.toSet(),
                     onMapCreated: _onMapCreated,
                     initialCameraPosition: CameraPosition(
-                      target: LatLng(
-                        double.parse(spotBloc.getSpotList.first.acf.lat),
-                        double.parse(spotBloc.getSpotList.first.acf.lon),
-                      ),
+                      target: spotBloc.getSpotList.isNotEmpty ? LatLng(double.parse(spotBloc.getSpotList.first.acf.lat), double.parse(spotBloc.getSpotList.first.acf.lon)) : _centerEmpty,
                       zoom: 11.7,
                     ),
                   ),
@@ -86,10 +83,18 @@ class _RegionDetailState extends State<RegionDetail> {
                   child: ListView.builder(
                     itemCount: spotBloc.getSpotList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return BeachTile(
-                        loadImage: spotBloc.loadDestakImage(spotBloc.getSpotList[index].lLinks.wpAttachment.first.href),
-                        beachName: spotBloc.getSpotList[index].title.rendered,
-                        beachResume: HandleApiString.removeInapropriatedCharacter(spotBloc.getSpotList[index].content.rendered),
+                      String resume = HandleApiString.removeInapropriatedCharacter(spotBloc.getSpotList[index].content.rendered);
+                      resume = resume.split('.')[0] + resume.split('.')[1] + resume.split('.')[2] + '...';
+                      return GestureDetector(
+                        onTap: () {
+                          regionBloc.changeStackIndex(2);
+                          spotBloc.changeSpotIndexBeingDetailed(index);
+                        },
+                        child: BeachTile(
+                          loadImage: spotBloc.loadDestakImage(spotBloc.getSpotList[index].lLinks.wpAttachment.first.href),
+                          beachName: spotBloc.getSpotList[index].title.rendered,
+                          beachResume: resume,
+                        ),
                       );
                     },
                   ),
@@ -99,10 +104,23 @@ class _RegionDetailState extends State<RegionDetail> {
     );
   }
 
-  Widget _emptyScreen() {
+  Widget _emptyScreen(context) {
+    final height = MediaQuery.of(context).size.height;
     return Container(
       alignment: Alignment.center,
-      child: Text('Nada sobre esta região foi encontrado!'),
+      child: Column(
+        children: [
+          Container(
+            height: height / 3,
+            width: double.infinity,
+            color: Colors.greenAccent,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(80.0),
+            child: Text('Nada sobre esta região foi encontrado!'),
+          ),
+        ],
+      ),
     );
   }
 }

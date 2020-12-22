@@ -1,7 +1,7 @@
 class HandleApiString {
   static String removeInapropriatedCharacter(String text) {
-    bool containImage = text.contains('<figure class=\"wp-block-image');
-    bool containVideo = text.contains('<figure class=\"wp-block-embed is-type-video');
+    String newText = '';
+    bool containImage = text.contains('wp-block-image');
     text = text.replaceAll('<p>', '');
     text = text.replaceAll('</p>', '');
     text = text.replaceAll('<strong>', '');
@@ -12,16 +12,18 @@ class HandleApiString {
     text = text.replaceAll('[&hellip;]', '');
     text = text.replaceAll('&#8220;', '"');
     text = text.replaceAll('&#8221;', '"');
+    text = text.replaceAll('&#8217;', '\'');
+    text = text.replaceAll('&#8230;', '...');
 
     if (containImage) {
-      return text.split('</figure>')[1].trim().split('<figure class').first.trim();
+      newText += text.substring(0, text.indexOf('<figure'));
+      newText += text.substring(text.indexOf('</figure>') + 9, text.length);
+      newText = newText.split('<figure').first.trim();
+      return newText.trim();
     }
 
-    if (containVideo) {
-      return text.split('<figure class').first.trim();
-    }
-
-    return text.trim();
+    newText = text;
+    return newText.trim();
   }
 
   static String getVideoLink(String text) {

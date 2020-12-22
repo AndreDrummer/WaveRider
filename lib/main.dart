@@ -25,7 +25,7 @@ class WaveRider extends StatelessWidget {
           child: MaterialApp(
             title: 'WaveRider',
             theme: ThemeData(
-              primarySwatch: Colors.purple,
+              primarySwatch: Colors.blue,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
             debugShowCheckedModeBanner: false,

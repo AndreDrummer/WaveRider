@@ -5,7 +5,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Tela 4',
+        'WaveRider 1.0.0',
       ),
     );
   }
