@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:waverider/custom/icons.dart';
 import 'package:waverider/screens/about_screen.dart';
 import 'package:waverider/screens/events_screen.dart';
 import 'package:waverider/screens/news_screen.dart';
@@ -56,28 +57,28 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
-              Icons.fiber_new_sharp,
+              WaveRider.newspaper,
               size: 30,
             ),
           ),
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
-              Icons.event,
+              WaveRider.calendar_empty,
               size: 30,
             ),
           ),
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
-              Icons.pin_drop_sharp,
+              WaveRider.location,
               size: 30,
             ),
           ),
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
-              Icons.info,
+              WaveRider.info_circle,
               size: 30,
             ),
           ),
