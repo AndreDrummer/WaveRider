@@ -22,6 +22,8 @@ class CategorieBloc with Bloc, ChangeNotifier {
 
   // Obtaining the actual data
   List<Post> get getNewsList => _listNews.value;
+  int get getIndexStackNews => _indexStackNews.value;
+  int get getIndexStackEvents => _indexStackEvents.value;
   List<Post> get getEventsList => _listEvents.value;
   int get newsIndexBeingDetailed => _newsIndexBeingDetailed;
   int get eventsIndexBeingDetailed => _eventsIndexBeingDetailed;

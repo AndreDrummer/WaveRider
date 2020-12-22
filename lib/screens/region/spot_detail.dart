@@ -76,7 +76,11 @@ class _SpotDetailState extends State<SpotDetail> {
             text: spotBloc.getSpotList[spotBloc.spotIndexBeingDetailed].content.rendered,
             fontSize: 16,
           ),
-          ButtonBack(),
+          ButtonBack(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );

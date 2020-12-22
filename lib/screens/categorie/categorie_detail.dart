@@ -3,6 +3,7 @@ import 'package:waverider/bloC/categorie_bloc.dart';
 import 'package:waverider/models/post.dart';
 import 'package:waverider/screens/categorie/functions.dart';
 import 'package:waverider/utils/handle_api_string.dart';
+import 'package:waverider/widgets/button_back.dart';
 import 'package:waverider/widgets/image_header.dart';
 import 'package:waverider/widgets/text_widgets.dart';
 import 'package:waverider/widgets/video.dart';
@@ -35,7 +36,7 @@ class _CategorieDetailState extends State<CategorieDetail> {
 
     return WillPopScope(
       onWillPop: () async {
-        categorieCommonFunctions.changeStackIndex(0);
+        categorieCommonFunctions.changeStackIndex();
         return false;
       },
       child: ListView(
@@ -70,7 +71,10 @@ class _CategorieDetailState extends State<CategorieDetail> {
                     ],
                   )
                 : Text(''),
-          )
+          ),
+          ButtonBack(onPressed: () {
+            categorieCommonFunctions.changeStackIndex();
+          })
         ],
       ),
     );

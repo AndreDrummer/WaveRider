@@ -21,13 +21,13 @@ class CategorieCommonFunctions {
     }
   }
 
-  void changeStackIndex(int index) {
+  void changeStackIndex({bool inc = false}) {
     switch (categorieType) {
       case CATEGORIE_TYPE.news:
-        bloc.changeStackIndexNews(index);
+        bloc.changeStackIndexNews(inc ? bloc.getIndexStackNews + 1 : bloc.getIndexStackNews - 1);
         break;
       default:
-        bloc.changeStackIndexEvents(index);
+        bloc.changeStackIndexEvents(inc ? bloc.getIndexStackEvents + 1 : bloc.getIndexStackEvents - 1);
     }
   }
 

@@ -56,7 +56,7 @@ class _CategorieListState extends State<CategorieList> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  categorieCommonFunctions.changeStackIndex(1);
+                  categorieCommonFunctions.changeStackIndex(inc: true);
                   categorieCommonFunctions.changeCategorieIndexBeingDetailed(index);
                 },
                 child: Column(
