@@ -26,14 +26,14 @@ class BeachTile extends StatelessWidget {
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Container(
-                    width: 150,
-                    height: 150,
+                    width: 170,
+                    height: 170,
                     child: ImageHeader(),
                   );
                 }
                 return Container(
-                  width: 150,
-                  height: 150,
+                  width: 170,
+                  height: 170,
                   child: ImageHeader(
                     src: snapshot.data,
                   ),

@@ -2,6 +2,7 @@ class HandleApiString {
   static String removeInapropriatedCharacter(String text) {
     String newText = '';
     bool containImage = text.contains('wp-block-image');
+    bool containVideo = text.contains('wp-block-embed');
     text = text.replaceAll('<p>', '');
     text = text.replaceAll('</p>', '');
     text = text.replaceAll('<strong>', '');
@@ -23,6 +24,12 @@ class HandleApiString {
     }
 
     newText = text;
+
+    if (containVideo) {
+      newText = newText.split('<figure').first.trim();
+      return newText.trim();
+    }
+
     return newText.trim();
   }
 

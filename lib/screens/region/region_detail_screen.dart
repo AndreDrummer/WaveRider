@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:waverider/bloC/bloc_provider.dart';
+import 'package:waverider/bloC/maps_bloc.dart';
 import 'package:waverider/bloC/region_bloc.dart';
 import 'package:waverider/bloC/spot_bloc.dart';
+import 'package:waverider/models/spot.dart';
+import 'package:waverider/screens/region/spot_detail.dart';
 import 'package:waverider/utils/handle_api_string.dart';
 import 'package:waverider/widgets/beach_tile.dart';
 import 'package:waverider/widgets/text_widgets.dart';
@@ -15,6 +18,7 @@ class RegionDetail extends StatefulWidget {
 class _RegionDetailState extends State<RegionDetail> {
   RegionBloc regionBloc;
   SpotBloc spotBloc;
+  MapsBloc mapsBloc;
 
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
@@ -38,7 +42,17 @@ class _RegionDetailState extends State<RegionDetail> {
   void didChangeDependencies() {
     regionBloc = BlocProvider.of<RegionBloc>(context);
     spotBloc = BlocProvider.of<SpotBloc>(context);
+    mapsBloc = BlocProvider.of<MapsBloc>(context);
     super.didChangeDependencies();
+  }
+
+  void openSpotDetail() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SpotDetail(),
+      ),
+    );
   }
 
   @override
@@ -87,8 +101,10 @@ class _RegionDetailState extends State<RegionDetail> {
                       resume = resume.split('.')[0] + resume.split('.')[1] + resume.split('.')[2] + '...';
                       return GestureDetector(
                         onTap: () {
-                          regionBloc.changeStackIndex(2);
                           spotBloc.changeSpotIndexBeingDetailed(index);
+                          Spot spot = spotBloc.getSpotList[spotBloc.spotIndexBeingDetailed];
+                          mapsBloc.changeMapSpotDetail(spot);
+                          openSpotDetail();
                         },
                         child: BeachTile(
                           loadImage: spotBloc.loadDestakImage(spotBloc.getSpotList[index].lLinks.wpAttachment.first.href),
@@ -116,8 +132,17 @@ class _RegionDetailState extends State<RegionDetail> {
             color: Colors.greenAccent,
           ),
           Padding(
-            padding: const EdgeInsets.all(80.0),
-            child: Text('Nada sobre esta região foi encontrado!'),
+            padding: EdgeInsets.only(top: height / 5, left: height / 36),
+            child: Column(
+              children: [
+                Text(
+                  ':(',
+                  style: TextStyle(fontSize: 60, fontWeight: FontWeight.w700),
+                ),
+                SizedBox(height: 15),
+                Text('Nada sobre esta região foi encontrado!'),
+              ],
+            ),
           ),
         ],
       ),

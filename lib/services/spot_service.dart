@@ -15,7 +15,6 @@ class SpotService {
           ),
         );
       }
-      print(response);
     } catch (e) {
       print(e);
     }
@@ -38,8 +37,7 @@ class SpotService {
 
   void getSpotByID(String spotID) async {
     try {
-      Response response = await Dio().get(Endpoints.getSpotDetails(spotID));
-      print(response);
+      // Response response = await Dio().get(Endpoints.getSpotDetails(spotID));
     } catch (e) {
       print(e);
     }

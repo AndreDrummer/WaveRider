@@ -3,7 +3,6 @@ import 'package:waverider/bloC/bloc_provider.dart';
 import 'package:waverider/bloC/region_bloc.dart';
 import 'package:waverider/screens/region/region_detail_screen.dart';
 import 'package:waverider/screens/region/region_list.dart';
-import 'package:waverider/screens/region/spot_detail.dart';
 
 class RegionScreen extends StatefulWidget {
   @override
@@ -32,7 +31,6 @@ class _RegionScreenState extends State<RegionScreen> {
               bloc: regionBloc,
             ),
             RegionDetail(),
-            SpotDetail()
           ],
         );
       },

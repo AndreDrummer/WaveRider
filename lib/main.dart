@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:waverider/bloC/bloc_provider.dart';
 import 'package:waverider/bloC/categorie_bloc.dart';
+import 'package:waverider/bloC/maps_bloc.dart';
 import 'package:waverider/bloC/region_bloc.dart';
 import 'package:waverider/home.dart';
 
@@ -22,14 +23,17 @@ class WaveRider extends StatelessWidget {
         bloc: regionBloc,
         child: BlocProvider<SpotBloc>(
           bloc: SpotBloc(),
-          child: MaterialApp(
-            title: 'WaveRider',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
+          child: BlocProvider<MapsBloc>(
+            bloc: MapsBloc(),
+            child: MaterialApp(
+              title: 'WaveRider',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+              ),
+              debugShowCheckedModeBanner: false,
+              home: Home(title: 'WaveRider'),
             ),
-            debugShowCheckedModeBanner: false,
-            home: Home(title: 'WaveRider'),
           ),
         ),
       ),

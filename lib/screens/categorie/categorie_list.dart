@@ -37,9 +37,17 @@ class _CategorieListState extends State<CategorieList> {
           }
 
           if (snapshot.data.isEmpty) {
-            return Container(
-              alignment: Alignment.center,
-              child: Text('Nada encontrado'),
+            return FutureBuilder<Object>(
+              future: Future.delayed(Duration(seconds: 120)),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return LoadingPage();
+                }
+                return Container(
+                  alignment: Alignment.center,
+                  child: Text('Nada encontrado'),
+                );
+              },
             );
           }
 
