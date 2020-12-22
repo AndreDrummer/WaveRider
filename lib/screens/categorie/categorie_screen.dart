@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:waverider/bloC/categorie_bloc.dart';
-import 'package:waverider/screens/categorie/categorie_detail.dart';
-import 'package:waverider/screens/categorie/categorie_list.dart';
+import 'package:waverider/screens/categorie/categorie_detail_screen.dart';
+import 'package:waverider/screens/categorie/categorie_list_screen.dart';
 import 'package:waverider/utils/constantes.dart';
 
 class CategorieScreen extends StatefulWidget {
@@ -28,11 +28,11 @@ class _CategorieScreenState extends State<CategorieScreen> {
         return IndexedStack(
           index: snapshot.data ?? 0,
           children: [
-            CategorieList(
+            CategorieListScreen(
               bloc: widget.bloc,
               categorieType: widget.categorieType,
             ),
-            CategorieDetail(
+            CategorieDetailScreen(
               bloc: widget.bloc,
               categorieType: widget.categorieType,
             ),

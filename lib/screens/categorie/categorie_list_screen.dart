@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:waverider/bloC/categorie_bloc.dart';
 import 'package:waverider/models/post.dart';
-import 'package:waverider/screens/categorie/functions.dart';
+import 'package:waverider/utils/functions.dart';
 import 'package:waverider/widgets/image_header.dart';
 import 'package:waverider/widgets/loading_page.dart';
 import 'package:waverider/widgets/text_widgets.dart';
 import 'package:waverider/utils/constantes.dart';
 
-class CategorieList extends StatefulWidget {
-  CategorieList({
+class CategorieListScreen extends StatefulWidget {
+  CategorieListScreen({
     this.bloc,
     @required this.categorieType,
   });
@@ -17,10 +17,10 @@ class CategorieList extends StatefulWidget {
   final CATEGORIE_TYPE categorieType;
 
   @override
-  _CategorieListState createState() => _CategorieListState();
+  _CategorieListScreenState createState() => _CategorieListScreenState();
 }
 
-class _CategorieListState extends State<CategorieList> {
+class _CategorieListScreenState extends State<CategorieListScreen> {
   @override
   Widget build(BuildContext context) {
     CategorieCommonFunctions categorieCommonFunctions = CategorieCommonFunctions(bloc: widget.bloc, categorieType: widget.categorieType);

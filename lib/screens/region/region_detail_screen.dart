@@ -4,7 +4,7 @@ import 'package:waverider/bloC/maps_bloc.dart';
 import 'package:waverider/bloC/region_bloc.dart';
 import 'package:waverider/bloC/spot_bloc.dart';
 import 'package:waverider/models/spot.dart';
-import 'package:waverider/screens/region/spot_detail.dart';
+import 'package:waverider/screens/region/spot_detail_screen.dart';
 import 'package:waverider/utils/handle_api_string.dart';
 import 'package:waverider/widgets/beach_tile.dart';
 import 'package:waverider/widgets/text_widgets.dart';
